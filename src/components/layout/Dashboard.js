@@ -7,11 +7,16 @@ class Dashboard extends Component {
 
     this.state = {
       rooms: [],
+      showNewRoom: false,
       newRoomName: ""
     };
 
     this.roomsRef = this.props.firebase.database().ref("rooms");
   }
+
+  handleClick = () => {
+    this.setState({ showNewRoom: !this.state.showNewRoom });
+  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -36,12 +41,16 @@ class Dashboard extends Component {
   }
 
   render() {
+    const { rooms, showNewRoom, newRoomName } = this.state;
+
     return (
       <div className="row">
         <div className="col-md-3">
           <RoomList
-            rooms={this.state.rooms}
-            newRoomName={this.state.newRoomName}
+            rooms={rooms}
+            showNewRoom={showNewRoom}
+            newRoomName={newRoomName}
+            handleClick={this.handleClick}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
           />

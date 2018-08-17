@@ -1,13 +1,16 @@
 import React, { Component } from "react";
+import classnames from "classnames";
 
 class RoomList extends Component {
-  state = {
-    showNewRoom: false
-  };
-
   render() {
-    const { rooms, handleSubmit, handleChange, newRoomName } = this.props;
-    const { showNewRoom } = this.state;
+    const {
+      rooms,
+      showNewRoom,
+      newRoomName,
+      handleClick,
+      handleSubmit,
+      handleChange
+    } = this.props;
 
     let newRoomForm = "";
 
@@ -22,6 +25,7 @@ class RoomList extends Component {
               className="form-control"
               placeholder="Room name"
               onChange={handleChange}
+              required
               value={newRoomName}
             />
             <div className="input-group-append">
@@ -46,14 +50,13 @@ class RoomList extends Component {
               <h5>
                 <span>Chat Rooms</span>
                 <span>
-                  <a
-                    href="#!"
-                    onClick={() =>
-                      this.setState({ showNewRoom: !this.state.showNewRoom })
-                    }
-                    className="float-right"
-                  >
-                    <i className="fas fa-plus" />
+                  <a href="#!" onClick={handleClick} className="float-right">
+                    <i
+                      className={classnames({
+                        "fas fa-plus": showNewRoom === false,
+                        "fas fa-minus": showNewRoom === true
+                      })}
+                    />
                   </a>
                 </span>
               </h5>
