@@ -8,10 +8,14 @@ class Dashboard extends Component {
     this.state = {
       rooms: [],
       showNewRoom: false,
-      newRoomName: ""
+      newRoomName: "",
+      activeRoom: null
     };
 
     this.roomsRef = this.props.firebase.database().ref("rooms");
+    this.roomMessagesRef = this.props.firebase
+      .database()
+      .ref("messages/" + this.state.activeRoom);
   }
 
   handleClick = () => {
@@ -31,6 +35,24 @@ class Dashboard extends Component {
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  // populateMessages = () => {
+  //   const { activeRoom } = this.state;
+
+  //   const loadingMessage = (
+
+  //   )
+
+  //   if(activeRoom === !null) {
+  //     this.componentDidMount() {
+  //       this.roomMessagesRef.on("child_added", snapshot => {
+  //         console.log(snapshot)
+  //       })
+  //     }
+  //   } else {
+  //     return
+  //   }
+  // }
 
   componentDidMount() {
     this.roomsRef.on("child_added", snapshot => {

@@ -9,7 +9,8 @@ class RoomList extends Component {
       newRoomName,
       handleClick,
       handleSubmit,
-      handleChange
+      handleChange,
+      handleClickActive
     } = this.props;
 
     let newRoomForm = "";
@@ -67,7 +68,9 @@ class RoomList extends Component {
                     key={room.key}
                     className="list-group-item list-group-item-action"
                   >
-                    {room.name}
+                    <a className="btn btn-link" onClick={handleClickActive}>
+                      {room.name}
+                    </a>
                   </li>
                 ))}
               </ul>
