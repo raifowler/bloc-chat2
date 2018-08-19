@@ -1,5 +1,18 @@
 import React, { Component } from "react";
 import RoomList from "../rooms/RoomList";
+import MessageList from "../messages/MessageList";
+
+import * as firebase from "firebase";
+
+var firebaseConfig = {
+  apiKey: "AIzaSyBl3ucs5y9V7UQvFRC623o7aR_TFHTb6f8",
+  authDomain: "bloc-chat-ec971.firebaseapp.com",
+  databaseURL: "https://bloc-chat-ec971.firebaseio.com",
+  projectId: "bloc-chat-ec971",
+  storageBucket: "bloc-chat-ec971.appspot.com",
+  messagingSenderId: "698791447804"
+};
+firebase.initializeApp(firebaseConfig);
 
 class Dashboard extends Component {
   constructor(props) {
@@ -9,17 +22,19 @@ class Dashboard extends Component {
       rooms: [],
       showNewRoom: false,
       newRoomName: "",
-      activeRoom: null
+      activeRoom: "",
+      activeRoomName: ""
     };
 
-    this.roomsRef = this.props.firebase.database().ref("rooms");
-    this.roomMessagesRef = this.props.firebase
-      .database()
-      .ref("messages/" + this.state.activeRoom);
+    this.roomsRef = firebase.database().ref("rooms");
   }
 
   handleClick = () => {
     this.setState({ showNewRoom: !this.state.showNewRoom });
+  };
+
+  handleClickActive = (roomId, roomName) => {
+    this.setState({ activeRoom: roomId, activeRoomName: roomName });
   };
 
   handleSubmit = e => {
@@ -36,24 +51,6 @@ class Dashboard extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  // populateMessages = () => {
-  //   const { activeRoom } = this.state;
-
-  //   const loadingMessage = (
-
-  //   )
-
-  //   if(activeRoom === !null) {
-  //     this.componentDidMount() {
-  //       this.roomMessagesRef.on("child_added", snapshot => {
-  //         console.log(snapshot)
-  //       })
-  //     }
-  //   } else {
-  //     return
-  //   }
-  // }
-
   componentDidMount() {
     this.roomsRef.on("child_added", snapshot => {
       const room = snapshot.val();
@@ -63,22 +60,33 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { rooms, showNewRoom, newRoomName } = this.state;
+    const {
+      rooms,
+      showNewRoom,
+      newRoomName,
+      activeRoom,
+      activeRoomName
+    } = this.state;
 
     return (
-      <div className="row">
+      <div className="row h-100">
         <div className="col-md-3">
           <RoomList
             rooms={rooms}
             showNewRoom={showNewRoom}
             newRoomName={newRoomName}
             handleClick={this.handleClick}
+            handleClickActive={this.handleClickActive}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
           />
         </div>
         <div className="col-md-9">
-          <h1>Messages will appear here</h1>
+          <MessageList
+            firebase={firebase}
+            activeRoom={activeRoom}
+            activeRoomName={activeRoomName}
+          />
         </div>
       </div>
     );

@@ -46,35 +46,38 @@ class RoomList extends Component {
     if (rooms) {
       return (
         <div>
-          <div className="col">
-            <div className="mb-3">
-              <h5>
-                <span>Chat Rooms</span>
-                <span>
-                  <a href="#!" onClick={handleClick} className="float-right">
-                    <i
-                      className={classnames({
-                        "fas fa-plus": showNewRoom === false,
-                        "fas fa-minus": showNewRoom === true
-                      })}
-                    />
-                  </a>
-                </span>
-              </h5>
-              {newRoomForm}
-              <ul className="list-group list-group-flush">
-                {rooms.map(room => (
-                  <li
-                    key={room.key}
-                    className="list-group-item list-group-item-action"
+          <div className="mb-3">
+            <h5>
+              <span>Chat Rooms</span>
+              <span>
+                <a href="#!" onClick={handleClick} className="float-right">
+                  <i
+                    className={classnames({
+                      "fas fa-plus": showNewRoom === false,
+                      "fas fa-minus": showNewRoom === true
+                    })}
+                  />
+                </a>
+              </span>
+            </h5>
+            {newRoomForm}
+            <ul className="list-group list-group-flush">
+              {rooms.map(room => (
+                <li
+                  key={room.key}
+                  className="list-group-item list-group-item-action"
+                >
+                  <a
+                    className="btn btn-link"
+                    onClick={() => {
+                      handleClickActive(room.key, room.name);
+                    }}
                   >
-                    <a className="btn btn-link" onClick={handleClickActive}>
-                      {room.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                    {room.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       );
