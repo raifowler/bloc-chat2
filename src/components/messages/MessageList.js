@@ -44,12 +44,12 @@ class MessageList extends Component {
 
     if (activeRoom !== "") {
       return (
-        <div className="h-75 card mb-3">
+        <div className="h-75 card">
           <h5 className="text-center card-header">{activeRoomName}</h5>
           <div className="card-body">
             <ul className=" list-group list-group-flush align-text-bottom">
               {roomMessages.map(message => (
-                <li className="list-group-item">
+                <li key={message.key} className="list-group-item">
                   <span className="font-weight-bold">{message.username}</span> :{" "}
                   {message.content}
                 </li>
