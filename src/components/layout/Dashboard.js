@@ -2,17 +2,19 @@ import React, { Component } from "react";
 import RoomList from "../rooms/RoomList";
 import MessageList from "../messages/MessageList";
 
-import * as firebase from "firebase";
+import { roomsRef } from "../../config/constants";
 
-var firebaseConfig = {
-  apiKey: "AIzaSyBl3ucs5y9V7UQvFRC623o7aR_TFHTb6f8",
-  authDomain: "bloc-chat-ec971.firebaseapp.com",
-  databaseURL: "https://bloc-chat-ec971.firebaseio.com",
-  projectId: "bloc-chat-ec971",
-  storageBucket: "bloc-chat-ec971.appspot.com",
-  messagingSenderId: "698791447804"
-};
-firebase.initializeApp(firebaseConfig);
+// import * as firebase from "firebase";
+
+// var firebaseConfig = {
+//   apiKey: "AIzaSyBl3ucs5y9V7UQvFRC623o7aR_TFHTb6f8",
+//   authDomain: "bloc-chat-ec971.firebaseapp.com",
+//   databaseURL: "https://bloc-chat-ec971.firebaseio.com",
+//   projectId: "bloc-chat-ec971",
+//   storageBucket: "bloc-chat-ec971.appspot.com",
+//   messagingSenderId: "698791447804"
+// };
+// firebase.initializeApp(firebaseConfig);
 
 class Dashboard extends Component {
   constructor(props) {
@@ -26,7 +28,7 @@ class Dashboard extends Component {
       activeRoomName: ""
     };
 
-    this.roomsRef = firebase.database().ref("rooms");
+    // this.roomsRef = firebase.database().ref("rooms");
   }
 
   handleClick = () => {
@@ -52,7 +54,8 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    this.roomsRef.on("child_added", snapshot => {
+    // this.roomsRef.on("child_added", snapshot => {
+    roomsRef.on("child_added", snapshot => {
       const room = snapshot.val();
       room.key = snapshot.key;
       this.setState({ rooms: this.state.rooms.concat(room) });
@@ -83,7 +86,7 @@ class Dashboard extends Component {
         </div>
         <div className="col-md-9">
           <MessageList
-            firebase={firebase}
+            // firebase={firebase}
             activeRoom={activeRoom}
             activeRoomName={activeRoomName}
           />

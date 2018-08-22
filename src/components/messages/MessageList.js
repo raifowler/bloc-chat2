@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { messagesRef } from "../../config/constants";
+
 class MessageList extends Component {
   constructor(props) {
     super(props);
@@ -9,11 +11,12 @@ class MessageList extends Component {
       roomMessages: []
     };
 
-    this.roomMessagesRef = this.props.firebase.database().ref("messages");
+    // this.roomMessagesRef = this.props.firebase.database().ref("messages");
   }
 
   componentDidMount() {
-    this.roomMessagesRef.on("child_added", snapshot => {
+    // this.roomMessagesRef.on("child_added", snapshot => {
+    messagesRef.on("child_added", snapshot => {
       const message = snapshot.val();
       message.key = snapshot.key;
 
