@@ -41,6 +41,10 @@ class MessageList extends Component {
     }
   }
 
+  componentWillUnmount() {
+    messagesRef.off();
+  }
+
   render() {
     const { activeRoom, activeRoomName } = this.props;
     const { roomMessages } = this.state;
