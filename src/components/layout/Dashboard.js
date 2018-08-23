@@ -42,7 +42,7 @@ class Dashboard extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    this.roomsRef.push({
+    roomsRef.push({
       name: this.state.newRoomName
     });
 
@@ -60,6 +60,10 @@ class Dashboard extends Component {
       room.key = snapshot.key;
       this.setState({ rooms: this.state.rooms.concat(room) });
     });
+  }
+
+  componentWillUnmount() {
+    roomsRef.off();
   }
 
   render() {

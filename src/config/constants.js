@@ -10,7 +10,11 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
+// const provider = new firebase.auth.GoogleAuthProvider();
+
 export const roomsRef = firebase.database().ref("rooms");
 export const messagesRef = firebase.database().ref("messages");
 export const firebaseAuth = firebase.auth();
 export const provider = new firebase.auth.GoogleAuthProvider();
+// export function login() {return firebase.auth().signInWithPopup(provider)};
+// export function logout() {return firebase.auth().signOut()};
