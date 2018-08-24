@@ -45,12 +45,12 @@ class RoomList extends Component {
 
     if (rooms) {
       return (
-        <div>
+        <div className="h-75" id="room-list-container">
           <div className="mb-3">
             <h5>
               <span>Chat Rooms</span>
               <span>
-                <a href="#!" onClick={handleClick} className="float-right">
+                <a href="#!" onClick={handleClick} className="float-right mr-1">
                   <i
                     className={classnames({
                       "fas fa-plus": showNewRoom === false,
@@ -60,7 +60,7 @@ class RoomList extends Component {
                 </a>
               </span>
             </h5>
-            {newRoomForm}
+            <div className="mr-1">{newRoomForm}</div>
             <ul className="list-group list-group-flush">
               {rooms.map(room => (
                 <li

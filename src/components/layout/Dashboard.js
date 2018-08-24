@@ -93,6 +93,7 @@ class Dashboard extends Component {
             // firebase={firebase}
             activeRoom={activeRoom}
             activeRoomName={activeRoomName}
+            user={this.props.user}
           />
         </div>
       </div>
